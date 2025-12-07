@@ -1,17 +1,17 @@
-# 📊 Sistema de Previsão de Demanda com IA
+# 📊 Demand Forecast System
 
-Este projeto é um **sistema completo de previsão de demanda de produtos**, utilizando arquitetura em microsserviços com **Java (Spring Boot)** no backend, **Python (Machine Learning)** para os cálculos preditivos, **PostgreSQL** como banco de dados e **Angular** no frontend.
+This project is a **complete product demand forecasting system**, built with a microservices architecture using **Java (Spring Boot)** on the backend, **Python (Machine Learning)** for predictive calculations, **PostgreSQL** as the database, and **Angular** on the frontend.
 
-O sistema permite:
+The system allows:
 
-* Cadastro de produtos
-* Registro de vendas
-* Envio do histórico de vendas para um microserviço de IA
-* Retorno da previsão de demanda para o próximo período
+* Product registration
+* Sales history storage
+* Automatic sending of sales history to an AI microservice
+* Demand prediction return to the main system
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Technologies Used
 
 ### Backend
 
@@ -23,11 +23,11 @@ O sistema permite:
 * PostgreSQL
 * Lombok
 
-### IA / Machine Learning
+### AI / Machine Learning
 
 * Python 3
-* FastAPI (ou Flask)
-* Bibliotecas de ML (em evolução)
+* FastAPI or Flask
+* Machine Learning libraries (in progress)
 
 ### Frontend
 
@@ -35,40 +35,42 @@ O sistema permite:
 
 ---
 
-## 🏗️ Arquitetura do Sistema
+## 🏗️ System Architecture
 
 ```
-Angular → Spring Boot → Feign → Python (ML) → Spring → Angular
-                 ↓
-             PostgreSQL
+Angular → Spring Boot → Feign → Python (ML) → Spring Boot → Angular
+                    ↓
+                PostgreSQL
 ```
 
-✅ O Java envia os dados de vendas para o Python via REST.
-✅ O Python calcula a previsão usando Machine Learning.
-✅ O resultado retorna para o Java e é exibido no front.
+✅ Java sends sales data to Python via REST
+✅ Python processes the demand forecast using ML
+✅ The prediction is returned to Java and displayed on the frontend
 
 ---
 
-## 📦 Estrutura do Projeto
+## 📦 Project Structure
 
 ```
 demand-forecast/
 ├── backend/   (Spring Boot)
-├── python-ml/ (Microserviço de IA)
+├── python-ml/ (AI Microservice)
 └── frontend/  (Angular)
 ```
 
 ---
 
-## ⚙️ Como Rodar o Projeto Localmente
+## ⚙️ How to Run Locally
 
-### 1️⃣ Criar o banco de dados no PostgreSQL
+### 1️⃣ Create the database in PostgreSQL
 
 ```sql
 CREATE DATABASE demand_forecast;
 ```
 
-### 2️⃣ Configurar o application.properties
+---
+
+### 2️⃣ Configure application.properties
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/demand_forecast
@@ -82,7 +84,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 ---
 
-### 3️⃣ Rodar o Backend
+### 3️⃣ Run the Backend
 
 ```bash
 cd backend
@@ -91,7 +93,7 @@ mvn spring-boot:run
 
 ---
 
-### 4️⃣ Rodar o Microserviço Python
+### 4️⃣ Run the Python Microservice
 
 ```bash
 cd python-ml
@@ -100,11 +102,11 @@ python main.py
 
 ---
 
-## 🔗 Endpoints Principais
+## 🔗 Main Endpoints
 
-### ✅ Produtos
+### ✅ Products
 
-**Criar produto**
+**Create product**
 
 ```
 POST /api/products
@@ -112,13 +114,13 @@ POST /api/products
 
 ```json
 {
-  "name": "Arroz 5kg",
-  "category": "Alimentos",
+  "name": "Rice 5kg",
+  "category": "Food",
   "price": 21.90
 }
 ```
 
-**Listar produtos**
+**List products**
 
 ```
 GET /api/products
@@ -126,17 +128,17 @@ GET /api/products
 
 ---
 
-### ✅ Previsão de Demanda
+### ✅ Demand Forecast
 
 ```
 GET /api/forecast/{productId}
 ```
 
-✅ O sistema coleta automaticamente o histórico de vendas do produto e envia para a IA.
+✅ The system automatically collects the product's sales history and sends it to the AI service.
 
 ---
 
-### ✅ Microserviço Python (IA)
+### ✅ Python AI Microservice
 
 ```
 POST /predict
@@ -149,7 +151,7 @@ POST /predict
 }
 ```
 
-**Resposta:**
+**Response:**
 
 ```json
 {
@@ -159,34 +161,23 @@ POST /predict
 
 ---
 
-## 🧠 Como a IA Funciona Atualmente
+## 🧠 How the AI Works (Current Version)
 
-* O Java envia apenas **o histórico de vendas do produto**.
-* O Python utiliza esse histórico para gerar uma **previsão para o próximo período**.
-* Caso o serviço de IA esteja offline, o Java usa um **fallback estatístico (média + 10%)**.
-
----
-
-## 📈 Próximas Evoluções Planejadas
-
-* ✅ Regressão Linear
-* ✅ ARIMA / Prophet (Séries Temporais)
-* ✅ Dashboard de gráficos no Angular
-* ✅ Filas com RabbitMQ ou Kafka
-* ✅ Deploy com Docker
+* Java sends only the **product sales history**
+* Python calculates the **next-period demand forecast**
+* If the AI service is offline, Java applies a **statistical fallback (average + 10%)**
 
 ---
 
-## 🧑‍💻 Autor
+## 📈 Planned Future Improvements
 
-Projeto desenvolvido por **Luis Henrique** como parte de estudos avançados em:
-
-* Engenharia de Software
-* Arquitetura de Sistemas
-* Inteligência Artificial aplicada a negócios
+* ✅ Linear Regression
+* ✅ ARIMA / Prophet (Time Series Forecasting)
+* ✅ Angular Dashboard with Charts
+* ✅ Message Queues (RabbitMQ or Kafka)
+* ✅ Docker Deployment
 
 ---
 
-## 💬 Observação Final
 
-Este projeto foi pensado para simular um cenário **real de mercado**, com arquitetura escalável, separação de responsabilidades, fallback de serviço e possibilidade de crescimento para ambiente corporativo.
+This project was designed to simulate a **real-world business scenario**, with scalable architecture, service decoupling, API communication, fallback strategies, and future-ready infrastructure for enterprise environments.
