@@ -23,7 +23,7 @@ export class UploadComponent {
   chart: any;
   predictions: any[] = [];
   isProcessing = false;
-  // 👈 2. Injetamos o cdr aqui no construtor
+  // Injetamos o cdr aqui no construtor
   constructor(
     private upload: UploadService,
     private cdr: ChangeDetectorRef,
@@ -39,7 +39,7 @@ export class UploadComponent {
     // Pega o cabeçalho original do arquivo para sabermos ler os dados
     const header = rows[0].split(',').map(h => h.trim());
 
-    // 👇 1. MUDANÇA: Forçamos a tabela a ter as 6 colunas oficiais do sistema!
+    // MUDANÇA: Forçei a tabela a ter as 6 colunas oficiais do sistema!
     this.columns = ['date', 'quantity', 'price', 'is_promo', 'discount_pct', 'is_holiday'];
 
     this.preview = rows
@@ -54,7 +54,7 @@ export class UploadComponent {
           obj[h] = values[index];
         });
 
-        // 👇 2. MUDANÇA: Injetamos os ZEROS para as colunas que o CSV não tem
+        //  MUDANÇA: Injetei os ZEROS para as colunas que o CSV não tem
         obj['is_promo'] = obj['is_promo'] !== undefined ? obj['is_promo'] : 0;
         obj['discount_pct'] = obj['discount_pct'] !== undefined ? obj['discount_pct'] : 0;
         obj['is_holiday'] = obj['is_holiday'] !== undefined ? obj['is_holiday'] : 0;
@@ -81,14 +81,14 @@ export class UploadComponent {
     event.preventDefault();
   }
   downloadTemplate() {
-    // Criamos o cabeçalho oficial e uma linha de exemplo
+    // Criaei o cabeçalho oficial e uma linha de exemplo
     const csvData = "date,quantity,price,is_promo,discount_pct,is_holiday\n2024-02-15,50,22.50,1,15.0,0";
 
-    // Transformamos esse texto num "Arquivo"
+    // Transformei esse texto num "Arquivo"
     const blob = new Blob([csvData], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
-    // Criamos um link invisível, clicamos nele pelo código e depois apagamos
+    // Criei um link invisível, clicamos nele pelo código e depois apagamos
     const a = document.createElement('a');
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
@@ -128,17 +128,13 @@ export class UploadComponent {
     });
   }
 
-  // Certifique-se de que o SettingsService está no construtor lá em cima!
-// constructor(private upload: UploadService, private cdr: ChangeDetectorRef, private settingsService: SettingsService) {}
 
 processFile() {
   this.isProcessing = true;
   this.statusMessage = 'A inteligência artificial está a calcular...';
 
-  // 1. Pega o número FRESQUINHO que você salvou na tela de Configurações
   const diasEscolhidos = this.settingsService.getForecastDays();
 
-  // 2. Manda esse número na requisição (Tira o 6 daqui se ele estiver chumbado!)
   this.upload.sendPreviewToPython(this.preview, diasEscolhidos).subscribe({
     next: (response) => {
       this.predictions = response.predictions;
@@ -156,31 +152,23 @@ processFile() {
 }
 
 exportarParaPDF() {
-    // 1. Encontra a div que marcamos com o ID
     const elemento = document.getElementById('relatorio-pdf');
 
     if (elemento) {
-      // Pequeno truque para mostrar o cabeçalho no PDF e esconder depois
       const header = elemento.querySelector('.pdf-header') as HTMLElement;
       if (header) header.style.display = 'block';
 
-      // 2. O html2canvas tira a "foto" da div
       html2canvas(elemento, { scale: 2 }).then((canvas) => {
-        // Pega a imagem gerada
         const imageData = canvas.toDataURL('image/png');
 
-        // 3. Configura a página do PDF (A4, formato retrato)
         const pdf = new jsPDF('p', 'mm', 'a4');
 
-        // Medidas matemáticas para encaixar a imagem na folha A4
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-        // 4. Cola a foto no PDF e faz o download
         pdf.addImage(imageData, 'PNG', 0, 10, pdfWidth, pdfHeight);
         pdf.save('Relatorio_Previsao_Vendas.pdf');
 
-        // Esconde o cabeçalho da tela novamente
         if (header) header.style.display = 'none';
       });
     }

@@ -11,7 +11,7 @@ import { SettingsService } from '../../core/services/settings';
   styleUrls: ['./configurations.css']
 })
 export class ConfigurationComponent {
-  // 👇 Nome igualzinho ao que está no [(ngModel)] do HTML
+  // Nome igual ao que está no [(ngModel)] do HTML
   selectedDays: number;
 
   constructor(private settingsService: SettingsService) {
@@ -19,7 +19,7 @@ export class ConfigurationComponent {
     this.selectedDays = this.settingsService.getForecastDays();
   }
 
-  // 👇 Nome igualzinho ao que está no (change) do HTML
+  // Nome igual ao que está no (change) do HTML
   onDaysChange() {
     this.settingsService.setForecastDays(this.selectedDays);
   }

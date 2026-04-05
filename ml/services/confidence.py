@@ -1,3 +1,5 @@
+# para uso futuro
+
 import numpy as np
 import pandas as pd
 

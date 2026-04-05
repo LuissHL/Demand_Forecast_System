@@ -7,12 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class UploadService {
 
-  // Se você tiver uma rota de upload no Python depois, pode mudar aqui também
+  // Se tiver uma rota de upload no Python depois, pode mudar aqui também. Por enquanto, só tenho a rota de forecast mesmo.
   private apiUrl = 'http://localhost:8080/api/upload';
 
   constructor(private http: HttpClient) {}
 
-  // ... (uploadFile continua igual)
 
   sendPreviewToPython(rows: any[], months: number): Observable<any> {
     return this.http.post('http://localhost:8080/api/forecast', {
@@ -22,7 +21,7 @@ export class UploadService {
         date: r.date,
         quantity: Number(r.quantity),
         price: Number(r.price),
-        // 👇 Adicionamos valores padrão (0) para o Java não reclamar de dados nulos
+        // Adicionei valores padrão (0) para o Java não reclamar de dados nulos  . tipo um fallback caso o CSV não tenha essas colunas, o sistema ainda funciona normalmente
         is_promo: r.is_promo ? Number(r.is_promo) : 0,
         discount_pct: r.discount_pct ? Number(r.discount_pct) : 0.0,
         is_holiday: r.is_holiday ? Number(r.is_holiday) : 0
