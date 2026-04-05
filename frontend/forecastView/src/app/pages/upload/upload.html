@@ -1,0 +1,89 @@
+<div class="page">
+
+  <h2>Enviar Arquivo de Vendas</h2>
+
+  <div class="upload-box"
+       (drop)="onDrop($event)"
+       (dragover)="onDragOver($event)">
+
+    <input type="file" hidden #fileInput (change)="onFileSelected($event)" />
+
+    <button class="select-btn" (click)="fileInput.click()">
+      Selecionar Arquivo...
+    </button>
+
+    <p class="hint">Ou arraste e solte o arquivo aqui (CSV / Excel)</p>
+  </div>
+
+  <div *ngIf="fileName" class="file-ok">
+    <i class="fa fa-check-circle"></i>
+    {{ fileName }} carregado com sucesso.
+  </div>
+
+  <div class="upload-actions" *ngIf="!preview.length">
+
+    <p class="upload-hint">
+      <i class="fa fa-lightbulb" style="color: #fbbf24;"></i>
+      <b>Dica de IA:</b> Preencher as colunas de feriados e promoções na sua planilha aumenta a precisão da previsão em até 40%.
+    </p>
+
+    <button class="btn-secondary" (click)="downloadTemplate()">
+      <i class="fa fa-file-excel"></i> Baixar Planilha Modelo
+    </button>
+
+  </div>
+
+  <div *ngIf="preview.length" class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns">{{ col }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of preview">
+          <td *ngFor="let col of columns">{{ row[col] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="actions-row" *ngIf="preview.length" style="display: flex; gap: 15px; margin-top: 20px;">
+
+    <button class="process-btn"
+            (click)="processFile()"
+            [disabled]="isProcessing">
+      <span *ngIf="isProcessing">
+        <i class="fa fa-spinner fa-spin"></i> A calcular...
+      </span>
+      <span *ngIf="!isProcessing">Processar Arquivo</span>
+    </button>
+
+    <button class="btn-pdf"
+            *ngIf="predictions && predictions.length > 0"
+            (click)="exportarParaPDF()">
+      <i class="fa fa-file-pdf"></i> Exportar PDF
+    </button>
+
+  </div>
+
+  <div *ngIf="statusMessage" class="status-ok">
+    {{ statusMessage }}
+  </div>
+
+</div>
+
+<div id="relatorio-pdf" [hidden]="!predictions || predictions.length === 0">
+
+  <div class="pdf-header" style="display: none; text-align: center; margin-bottom: 20px;">
+    <h2 style="color: #1e293b; margin-bottom: 5px;">Relatório de Previsão de Demandas</h2>
+    <p style="color: #64748b; margin-top: 0;">Gerado pelo Motor de Inteligência Artificial</p>
+    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 20px;">
+  </div>
+
+  <div class="chart-container">
+    <h3>Gráfico de Previsão</h3>
+    <canvas #forecastChart></canvas>
+  </div>
+
+</div>

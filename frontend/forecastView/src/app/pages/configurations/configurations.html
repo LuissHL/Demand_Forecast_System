@@ -1,0 +1,37 @@
+<div class="page">
+  <h2>Configurações do Sistema</h2>
+  <p class="subtitle">Ajuste os parâmetros do motor de Inteligência Artificial.</p>
+
+  <div class="settings-grid">
+
+    <div class="settings-card">
+      <div class="card-header">
+        <i class="fa fa-robot" style="color: #3b82f6;"></i>
+        <h3>Motor de Previsão (IA)</h3>
+      </div>
+
+      <div class="card-body">
+        <label for="forecastDays">Horizonte de Previsão:</label>
+        <p class="help-text">Quantos dias no futuro a IA deve calcular as tendências de venda?</p>
+
+<select id="forecastDays" [(ngModel)]="selectedDays" (ngModelChange)="onDaysChange()">          <option [ngValue]="15">Curto Prazo (15 Dias)</option>
+          <option [ngValue]="30">Mensal (30 Dias)</option>
+          <option [ngValue]="45">Padrão (45 Dias)</option>
+          <option [ngValue]="90">Longo Prazo (90 Dias)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="settings-card">
+      <div class="card-header">
+        <i class="fa fa-paint-brush" style="color: #10b981;"></i>
+        <h3>Aparência (Em Breve)</h3>
+      </div>
+      <div class="card-body">
+        <p class="help-text">O Modo Escuro para todo o sistema estará disponível na próxima atualização.</p>
+        <button class="btn-disabled" disabled>Ativar Dark Mode</button>
+      </div>
+    </div>
+
+  </div>
+</div>

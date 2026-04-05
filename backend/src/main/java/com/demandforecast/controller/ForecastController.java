@@ -1,13 +1,11 @@
 package com.demandforecast.controller;
 
-import com.demandforecast.dto.ForecastResultDTO;
+import com.demandforecast.client.dto.ForecastResponseDTO;
+import com.demandforecast.client.dto.MultiForecastRequestDTO;
 import com.demandforecast.service.ForecastService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200") // Permite o Angular conversar com o Java
 @RestController
 @RequestMapping("/api/forecast")
 public class ForecastController {
@@ -18,11 +16,12 @@ public class ForecastController {
         this.forecastService = forecastService;
     }
 
-
-    @GetMapping("/{productId}")
-    public ForecastResultDTO getPredict(@PathVariable Long productId) {
-        Double value = forecastService.predict(productId);
-        return new ForecastResultDTO(productId, value);
+    // (CSV / Angular -> Java -> Python)
+    @PostMapping
+    public ForecastResponseDTO forecastFromFile(
+            @RequestBody MultiForecastRequestDTO request
+    ) {
+        // O Java recebe o JSON da tabela do Angular e só encaminha!
+        return forecastService.forecastFromFile(request);
     }
-
 }

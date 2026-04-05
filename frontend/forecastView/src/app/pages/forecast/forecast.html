@@ -1,0 +1,13 @@
+<div class="page">
+  <h2>Previsões</h2>
+
+  <div *ngFor="let item of forecasts" class="forecast-card">
+    <div class="date">{{ item.date }}</div>
+
+    <div class="values">
+      <p>Previsão: <strong>{{ item.prediction }}</strong></p>
+      <p>Min: {{ item.min }} | Max: {{ item.max }}</p>
+      <p>Confiança: {{ item.confidence }}%</p>
+    </div>
+  </div>
+</div>

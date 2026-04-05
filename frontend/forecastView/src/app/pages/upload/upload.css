@@ -1,0 +1,194 @@
+/* ==========================================
+   LAYOUT GERAL DA PÁGINA
+   ========================================== */
+.page {
+  width: 100%;
+  max-width: 1200px; /* Impede de ficar esticado DEMAIS em monitores gigantes */
+  margin: 0 auto; /* Centraliza o conteúdo na área branca */
+}
+
+/* ==========================================
+   ÁREA DE UPLOAD E BOTÕES
+   ========================================== */
+.upload-box {
+  border: 2px dashed #cbd5e1;
+  padding: 40px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 0px; /* Zerado para a dica grudar nele */
+  background: #fcfcfc;
+}
+
+.upload-box .select-btn {
+  background: #1976d2;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.upload-box .select-btn:hover {
+  background: #125a9c;
+}
+
+/* ==========================================
+   AÇÕES DE UPLOAD (DICA E BOTÃO MODELO)
+   ========================================== */
+.upload-actions {
+  margin-top: 10px; /* Cola na caixa de cima */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.upload-hint {
+  font-size: 0.9rem;
+  color: #475569;
+  background-color: #f8fafc;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  margin: 0;
+  width: 100%; /* Força a ter a mesma largura da caixa pontilhada */
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+/* ==========================================
+   STATUS E MENSAGENS
+   ========================================== */
+.file-ok {
+  padding: 12px;
+  border-radius: 6px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-ok {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 16px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+/* ==========================================
+   ESTILIZAÇÃO DA TABELA DE HISTÓRICO
+   ========================================== */
+.table-wrapper {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  max-height: 350px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.table-wrapper::-webkit-scrollbar { width: 8px; }
+.table-wrapper::-webkit-scrollbar-track { background: #f1f5f9; }
+.table-wrapper::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.table-wrapper::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: inherit;
+}
+
+th {
+  background-color: #f8fafc;
+  color: #334155;
+  font-weight: 600;
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  border-bottom: 2px solid #e2e8f0;
+  text-transform: capitalize;
+  z-index: 1;
+}
+
+td {
+  padding: 12px 16px;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) { background-color: #fcfcfc; }
+tbody tr:hover { background-color: #f1f5f9; transition: background-color 0.2s ease; }
+td:not(:first-child), th:not(:first-child) { text-align: right; }
+
+/* ==========================================
+   BOTÃO DE PROCESSAR E GRÁFICO
+   ========================================== */
+.process-btn {
+  background: #1976d2;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.process-btn:hover {
+  background: #125a9c;
+}
+
+.process-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.chart-container {
+  width: 100%;
+  box-sizing: border-box; /* Evita que o padding estoure a largura */
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-pdf {
+  background-color: #ef4444;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.btn-pdf:hover { background-color: #dc2626; }

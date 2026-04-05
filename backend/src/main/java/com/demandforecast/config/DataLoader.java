@@ -7,42 +7,39 @@ import com.demandforecast.repository.SaleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final ProductRepository productRepository;
-    private final SaleRepository saleRepository;
 
-    public DataLoader(ProductRepository productRepository,
-                      SaleRepository saleRepository) {
+    public DataLoader(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.saleRepository = saleRepository;
     }
 
+    @Override
     public void run(String... args) {
 
-        saleRepository.deleteAll(); // LIMPA TUDO
-        productRepository.deleteAll();
+        // deixa o histórico de vendas REAL vindo do Angular
+        System.out.println("➡ Nenhum histórico gerado automaticamente.");
 
-        Product product = new Product();
-        product.setName("Arroz 5kg");
-        product.setCategory("Alimentos");
-        product.setPrice(21.90);
+        if (productRepository.count() == 0) {
+            System.out.println("📦 Criando produtos iniciais...");
 
-        product = productRepository.save(product);
+            List<Product> products = List.of(
+                    new Product(null, "iPhone 14 Pro Max", "Smartphone Premium", 6999.00),
+                    new Product(null, "Samsung Smart TV 65\"", "Televisor 4K", 4999.00),
+                    new Product(null, "Notebook Gamer RTX 4060", "Notebook Gamer", 8999.00),
+                    new Product(null, "PlayStation 5", "Console", 3999.00),
+                    new Product(null, "Xbox Series X", "Console", 3899.00)
+            );
 
-        for (int i = 1; i <= 1000; i++) {
-            Sale sale = new Sale();
-            sale.setProduct(product);
-            sale.setQuantity((int) (Math.random() * 20) + 1);
-            sale.setSaleDate(LocalDate.now().minusDays(1000 - i));
+            productRepository.saveAll(products);
 
-            saleRepository.save(sale);
+            System.out.println("✔ Produtos criados.");
+        } else {
+            System.out.println("✔ Produtos já existem. Nenhuma alteração feita.");
         }
-
-        System.out.println("✅ 1000 vendas recriadas com sucesso!");
     }
 }

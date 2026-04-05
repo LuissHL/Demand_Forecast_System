@@ -10,16 +10,21 @@ import java.time.LocalDate;
 @Builder
 public class Sale {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @ManyToOne
-    private Product product; // ✔️ agora recebe um Product corretamente
+        @ManyToOne
+        private Product product;
 
-    private Integer quantity;
+        private Integer quantity;
+        private LocalDate saleDate;
 
-    private LocalDate saleDate;
+        private Double price;
+        private Integer isPromo;
+        private Double discountPct;
+        private Integer isHoliday;
+
 
     public Sale() {
     }
@@ -61,5 +66,37 @@ public class Sale {
 
     public void setSaleDate(LocalDate saleDate) {
         this.saleDate = saleDate;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getIsPromo() {
+        return isPromo;
+    }
+
+    public void setIsPromo(Integer isPromo) {
+        this.isPromo = isPromo;
+    }
+
+    public Double getDiscountPct() {
+        return discountPct;
+    }
+
+    public void setDiscountPct(Double discountPct) {
+        this.discountPct = discountPct;
+    }
+
+    public Integer getIsHoliday() {
+        return isHoliday;
+    }
+
+    public void setIsHoliday(Integer isHoliday) {
+        this.isHoliday = isHoliday;
     }
 }

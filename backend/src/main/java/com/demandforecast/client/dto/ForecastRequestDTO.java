@@ -1,30 +1,26 @@
 package com.demandforecast.client.dto;
 
+import com.demandforecast.dto.SaleDTO; // Importe o seu SaleDTO
 import java.util.List;
 
 public class ForecastRequestDTO {
     private Long productId;
-    private List<Integer> history;
 
-    public ForecastRequestDTO(Long productId, List<Integer> history) {
-        this.productId = productId;
-        this.history = history;
-    }
+    // 👇 O Angular manda os dias pra cá!
+    private Integer months;
 
-    public Long getProductId() {
-        return productId;
-    }
+    // 👇 A lista agora usa o seu SaleDTO atualizado
+    private List<SaleDTO> history;
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+    public ForecastRequestDTO() {}
 
-    public List<Integer> getHistory() {
-        return history;
-    }
+    // Getters e Setters
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
 
-    public void setHistory(List<Integer> history) {
-        this.history = history;
-    }
+    public Integer getMonths() { return months; }
+    public void setMonths(Integer months) { this.months = months; }
+
+    public List<SaleDTO> getHistory() { return history; }
+    public void setHistory(List<SaleDTO> history) { this.history = history; }
 }
-

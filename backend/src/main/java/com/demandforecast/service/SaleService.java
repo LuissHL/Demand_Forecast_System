@@ -1,5 +1,7 @@
 package com.demandforecast.service;
 
+import com.demandforecast.client.ForecastClient;
+import com.demandforecast.dto.SaleDTO;
 import com.demandforecast.entity.Sale;
 import com.demandforecast.repository.SaleRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +20,17 @@ public class SaleService {
     }
 
     public Sale save(Sale sale) {
-
         if (sale.getSaleDate() == null) {
             sale.setSaleDate(LocalDate.now());
         }
-
         return saleRepository.save(sale);
     }
 
     public List<Sale> findByProduct(Long productId) {
         return saleRepository.findByProductId(productId);
+    }
+
+    public List<Sale> findAll() {
+        return saleRepository.findAll();
     }
 }

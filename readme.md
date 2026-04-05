@@ -1,183 +1,106 @@
-# 📊 Demand Forecast System
+# 📊 Demand Forecast - Previsão de Vendas com IA
 
-This project is a **complete product demand forecasting system**, built with a microservices architecture using **Java (Spring Boot)** on the backend, **Python (Machine Learning)** for predictive calculations, **PostgreSQL** as the database, and **Angular** on the frontend.
+> Um sistema completo estilo SaaS para análise preditiva de vendas, unindo Angular, Spring Boot e Machine Learning.
 
-The system allows:
+![Status do Projeto](https://img.shields.io/badge/Status-Concluído-success)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat&logo=angular&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=FastAPI&logoColor=white)
 
-* Product registration
-* Sales history storage
-* Automatic sending of sales history to an AI microservice
-* Demand prediction return to the main system
+## Sobre o Projeto
 
----
+O **Demand Forecast** é uma ferramenta corporativa desenvolvida para auxiliar gestores e analistas na tomada de decisão. O sistema permite o upload de históricos de vendas (arquivos CSV ou Excel) e utiliza um motor de Inteligência Artificial para prever as tendências de demanda futuras. 
 
-## 🚀 Technologies Used
-
-### Backend
-
-* Java 17
-* Spring Boot
-* Spring Data JPA
-* Spring Web
-* Spring Cloud OpenFeign
-* PostgreSQL
-* Lombok
-
-### AI / Machine Learning
-
-* Python 3
-* FastAPI or Flask
-* Machine Learning libraries (in progress)
-
-### Frontend
-
-* Angular
+O grande diferencial do projeto é sua **arquitetura em 3 camadas**, garantindo escalabilidade, processamento assíncrono e separação clara de responsabilidades entre interface, regras de negócio e processamento de dados pesados.
 
 ---
 
-## 🏗️ System Architecture
+## Demonstração Visual
 
-```
-Angular → Spring Boot → Feign → Python (ML) → Spring Boot → Angular
-                    ↓
-                PostgreSQL
-```
+![Captura de Tela do Dashboard](/docs/assets/foto1.png)
+![Captura de Tela do Dashboard](/docs/assets/foto2.png)
 
-✅ Java sends sales data to Python via REST
-✅ Python processes the demand forecast using ML
-✅ The prediction is returned to Java and displayed on the frontend
+
 
 ---
 
-## 📦 Project Structure
+## Principais Funcionalidades
 
-```
-demand-forecast/
-├── backend/   (Spring Boot)
-├── python-ml/ (AI Microservice)
-└── frontend/  (Angular)
-```
-
----
-
-## ⚙️ How to Run Locally
-
-### 1️⃣ Create the database in PostgreSQL
-
-```sql
-CREATE DATABASE demand_forecast;
-```
+* **Upload Inteligente:** Processamento de planilhas de vendas com validação de dados.
+* **Treinamento On-the-Fly:** A IA (Random Forest) é treinada instantaneamente com os dados específicos do usuário.
+* **Previsão Dinâmica:** Ajuste do horizonte de previsão em tempo real (Curto prazo, Mensal, Padrão ou Longo Prazo).
+* **Exportação de Relatórios:** Geração de documentos PDF corporativos com gráficos e tabelas das previsões geradas.
+* **Dark Mode Global:** Interface adaptável ao tema claro ou escuro com persistência local.
 
 ---
 
-### 2️⃣ Configure application.properties
+## Tecnologias Utilizadas
 
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/demand_forecast
-spring.datasource.username=postgres
-spring.datasource.password=123456
+O projeto foi construído com as seguintes tecnologias:
 
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-```
+### Frontend (Interface e Interação)
+* **Angular:** Framework principal (Arquitetura orientada a componentes).
+* **TypeScript & CSS3:** Tipagem estática e estilização fluida (Flexbox/Grid).
+* **Chart.js / HTML5 Canvas:** Renderização dos gráficos de previsão.
+* **jsPDF & html2canvas:** Motor de exportação de relatórios em PDF.
+
+### Backend (Regras de Negócio e Roteamento)
+* **Java 17+:** Linguagem principal do servidor.
+* **Spring Boot:** Framework para criação de APIs RESTful robustas.
+* **Lombok:** Redução de boilerplate (DTOs, Getters/Setters).
+* **Jackson:** Serialização avançada e manipulação dos pacotes JSON.
+
+### Motor de IA (Processamento de Dados)
+* **Python:** Linguagem base para o serviço de Machine Learning.
+* **FastAPI:** Exposição de endpoints ultrarrápidos para o consumo do Java.
+* **Pandas:** Manipulação, limpeza e feature engineering de DataFrames.
+* **Scikit-Learn:** Criação do modelo preditivo usando *Random Forest Regressor*.
 
 ---
 
-### 3️⃣ Run the Backend
+## Arquitetura do Sistema
 
+O fluxo de dados ocorre na seguinte ordem:
+1.  **Frontend (Angular):** Coleta o arquivo CSV, os parâmetros (ex: 30 dias de previsão) e envia um JSON estruturado.
+2.  **Backend (Java/Spring):** Recebe os dados, aplica regras de validação através de DTOs mapeados e repassa o pacote de forma segura.
+3.  **Motor (Python/FastAPI):** Recebe o histórico, extrai as *features* (feriados, promoções, descontos), treina o modelo de Machine Learning e retorna a previsão exata de volta pelas camadas até o gráfico do usuário.
+
+---
+
+## 📦 Como rodar este projeto na sua máquina
+
+Para clonar e executar este aplicativo, você precisará do [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/), [Java JDK](https://www.oracle.com/java/technologies/downloads/) e [Python](https://www.python.org/downloads/) instalados no seu computador.
+
+### 1. Clonando o repositório
 ```bash
-cd backend
-mvn spring-boot:run
+git clone [https://github.com/](https://github.com/)[seu-usuario]/[nome-do-repositorio].git
 ```
 
----
-
-### 4️⃣ Run the Python Microservice
-
+### 2. Rodando o Motor de IA (Python)
 ```bash
-cd python-ml
-python main.py
+cd [pasta-do-python]
+pip install fastapi uvicorn pandas scikit-learn
+uvicorn app:app --reload --port 8000
 ```
+
+### 3. Rodando o Backend (Java)
+```bash
+cd [pasta-do-java]
+./mvnw spring-boot:run
+```
+
+### 4. Rodando o Frontend (Angular)
+```bash
+cd [pasta-do-angular]
+npm install
+ng serve
+```
+Acesse `http://localhost:4200` no seu navegador.
 
 ---
 
-## 🔗 Main Endpoints
+## Autor
 
-### ✅ Products
+Desenvolvido por **[Luis Henrique]**.
 
-**Create product**
-
-```
-POST /api/products
-```
-
-```json
-{
-  "name": "Rice 5kg",
-  "category": "Food",
-  "price": 21.90
-}
-```
-
-**List products**
-
-```
-GET /api/products
-```
-
----
-
-### ✅ Demand Forecast
-
-```
-GET /api/forecast/{productId}
-```
-
-✅ The system automatically collects the product's sales history and sends it to the AI service.
-
----
-
-### ✅ Python AI Microservice
-
-```
-POST /predict
-```
-
-```json
-{
-  "productId": 1,
-  "history": [10, 12, 15, 18, 20, 22, 25]
-}
-```
-
-**Response:**
-
-```json
-{
-  "forecast": 28.4
-}
-```
-
----
-
-## 🧠 How the AI Works (Current Version)
-
-* Java sends only the **product sales history**
-* Python calculates the **next-period demand forecast**
-* If the AI service is offline, Java applies a **statistical fallback (average + 10%)**
-
----
-
-## 📈 Planned Future Improvements
-
-* ✅ Linear Regression
-* ✅ ARIMA / Prophet (Time Series Forecasting)
-* ✅ Angular Dashboard with Charts
-* ✅ Message Queues (RabbitMQ or Kafka)
-* ✅ Docker Deployment
-
----
-
-
-This project was designed to simulate a **real-world business scenario**, with scalable architecture, service decoupling, API communication, fallback strategies, and future-ready infrastructure for enterprise environments.
+* LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/luis-henriquee/)
