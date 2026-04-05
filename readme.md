@@ -103,4 +103,4 @@ Acesse `http://localhost:4200` no seu navegador.
 
 Desenvolvido por **[Luis Henrique]**.
 
-* LinkedIn: [Seu LinkedIn](https://www.linkedin.com/in/luis-henriquee/)
+* LinkedIn: [clique_aqui](https://www.linkedin.com/in/luis-henriquee/)
